@@ -7,7 +7,7 @@ class Person:
         self.birthdate = birthdate
         self.is_alive = is_alive
 
-        self.__nationality = "Belgian"
+        self.__nationality = "Belgian" # binnen de klasse kan men eraan, erbuiten niet -> private 
 
     @property
     def age(self):
