@@ -62,3 +62,103 @@ worker1.email = "this is not an email" # zal niet veranderen omdat er geen @ in 
 print(worker1.email)
 worker1.email = "john@gmail.com"
 print(worker1.email)
+
+# Till here instance attributes
+# ________________________________________________________________________________________________________________________________________________
+#  
+# From here static attributes (class attribute)
+
+class UserClass:
+    user_class_count = 0
+
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+        UserClass.user_class_count += 1
+
+    def display_user(self):
+        print(f"Username: {self.username}, Email: {self.email}")
+
+user_class1 = UserClass("Danny", "Danny@hotmail.com") 
+user_class2 = UserClass("Martin", "matin@hotmail.com")
+user_class3 = UserClass("Dorine", "dorine@gmail.com")
+
+print(UserClass.user_class_count)
+print(user_class1.user_class_count)
+print(user_class2.user_class_count) # omwille van de static attribute geeft dit altijd het totaal
+
+# static attributes worden gebruikt voor counter, totals, ... of een default value
+# static attributes hebben geen 'self' en kunnen dan ook niet veranderd worden
+# we gebruiken een '@staticmethod' decorator
+
+class BankAccount:
+    MIN_BALANCE = 100
+
+    def __init__(self, owner, balance = 0):
+        self.owner = owner
+        self._balance = balance
+
+    def deposit(self, amount):
+        if self._is_valid_amount(amount):
+            self._balance += amount
+            self.__log_transaction("deposit", amount)
+        else:
+            print("Deposit must be positive!")
+    
+    def _is_valid_amount(self, amount):
+        return amount > 0
+    
+    def __log_transaction(self, transaction_type, amount):
+        print(f"Logging {transaction_type} of ${amount}. New balance: ${self._balance}")
+
+    @staticmethod
+    def is_valid_interest_rate(rate):
+        return 0 <= rate <= 5
+    
+account = BankAccount("Alice", 500)
+account.deposit(600)
+account.deposit(200)
+print(BankAccount.is_valid_interest_rate(3))
+
+# @staticmethod is een functie in de klasse, vergelijkbaar met private variables die niet buiten de klasse komen, maar dan voor methods
+
+# ________________________________________________________________________________________________________________________________________________
+#  
+# Encapsulation
+
+class BadBankAccount: 
+    def __init__(self, balance):
+        self.balance = balance
+
+badaccount1 = BadBankAccount(0.0)
+badaccount1.balance = -1
+
+print(badaccount1.balance)
+
+class BetterBankAccount:
+    def __init__(self):
+        self._balance = 0.0
+    
+    @property # getter
+    def balance(self):
+        return self._balance
+    
+    def deposit(self, amount): # not a setter
+        if amount <= 0:
+            raise ValueError("Deposit amount must be positive")
+        self._balance += amount
+
+    def withdraw(self, amount): # not a setter
+        if amount <= 0:
+            raise ValueError("Withdraw amount must be positive")
+        if amount >= self._balance:
+            raise ValueError("Insufficient funds")
+        self._balance -= amount
+    
+account_better1 = BetterBankAccount()    
+print(account_better1.balance) # mogelijk gezien @property balance
+account_better1.deposit(199.0)
+account_better1.withdraw(49.0)
+print(account_better1.balance)
+account_better1.withdraw(29.0)
+print(account_better1.balance)
