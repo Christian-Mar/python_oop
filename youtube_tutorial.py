@@ -193,4 +193,92 @@ email.send_email() # voert 4 methods uit in plaats van 4 methods op te geven die
 #  
 # Inheritance -> creating subclasses or derived classes based on existing classes (superclasses or base classes)
 
+class Vehicle:
+    def __init__(self, brand, model, year):
+        self.brand = brand
+        self.model = model
+        self.year = year
+    
+    def start(self):
+        print("Vehicle is starting")
 
+    def stop(self):
+        print("Vehicle is stopping")
+
+class Car(Vehicle): # erft van vehicle - tussen haakjes
+    def __init__(self, brand, model, year, number_of_doors, number_of_wheels):
+        super().__init__(brand, model, year) # super verwijst naar Vehicle
+        self.number_of_doors = number_of_doors
+        self.number_of_wheels = number_of_wheels
+
+class Bike(Vehicle):
+    def __init__(self, brand, model, year, number_of_wheels):
+        super().__init__(brand, model, year)
+        self.number_of_wheels = number_of_wheels
+
+car = Car("Ford", "Focus", 2008, 5, 4)
+bike = Bike("Honda", "CBR", 2019, 2)
+
+print(car.__dict__)
+print(bike.__dict__)
+car.start()
+bike.start()
+
+# ________________________________________________________________________________________________________________________________________________
+#  
+# Polymorphism
+
+class House:
+    def __init__(self, surface, year):
+        self.surface = surface
+        self.year = year
+
+    def start_cleaning(self):
+        print("House will be cleaned")
+
+    def stop_cleaning(self):
+        print("House is clean") 
+
+class LivingRoom(House):
+    def __init__(self, surface, year, table, sofa, floor):
+        super().__init__(surface, year) 
+        self.table = table
+        self.sofa = sofa
+        self.floor = floor
+
+    def start_cleaning(self): # eerder method van de parent wordt hier gespecifieerd en gebruikt als men de subclass tegenkomt
+        print("Living room will be cleaned")
+
+    def stop_cleaning(self):
+        print(f"Living room is clean, , including {self.table} and {self.sofa} + {self.floor}")     
+
+class BathRoom(House):
+    def __init__(self, surface, year, bath, shower, floor, walls):
+        super().__init__(surface, year)
+        self.bath = bath
+        self.shower = shower
+        self.floor = floor
+        self.walls = walls   
+
+    def start_cleaning(self):
+        print("Bath room will be cleaned")
+
+    def stop_cleaning(self):
+        print(f"Bath room is clean, including {self.walls}, {self.bath} and {self.shower}")                  
+
+rooms = [
+    LivingRoom("35m2", 2019, "table in wood", "sofa in white textile", "floor in wood"),
+    BathRoom("12m2", 2019, "white bath", "no shower", "floor in white tiles", "walls in white tiles")
+]
+
+for room in rooms:
+    print(f"Inspecting {room.surface} and floor to be cleaned: {room.floor} ({type(room).__name__})")
+    room.start_cleaning()
+    room.stop_cleaning()
+    
+#    if isinstance(room, House):
+#       print(f"Inspecting {room.surface}")
+#       room.start_cleaning()
+#       room.stop_cleaning()
+#   else:
+#       raise Exception("Room in nog mentioned in the list")
