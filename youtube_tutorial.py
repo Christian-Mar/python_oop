@@ -246,7 +246,7 @@ class LivingRoom(House):
         self.sofa = sofa
         self.floor = floor
 
-    def start_cleaning(self): # eerder method van de parent wordt hier gespecifieerd en gebruikt als men de subclass tegenkomt
+    def start_cleaning(self): # eerdere method van de parent wordt hier gespecifieerd en gebruikt als men de subclass tegenkomt
         print("Living room will be cleaned")
 
     def stop_cleaning(self):
