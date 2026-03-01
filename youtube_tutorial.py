@@ -162,3 +162,35 @@ account_better1.withdraw(49.0)
 print(account_better1.balance)
 account_better1.withdraw(29.0)
 print(account_better1.balance)
+
+# ________________________________________________________________________________________________________________________________________________
+#  
+# Abstraction - reduce complexity by hiding unnecessary details
+# waar encapsulation vooral variables en methods binnen de class houdt, weg van de user, is abstraction meer een vereenvoudiging voor het uitvoeren 
+# van meerdere functies -> vaak een combinatie van beide
+
+class EmailService:
+
+    def _connect(self):
+        print("Connecting to email server")
+    
+    def _authenticate(self):
+        print("Athenticating ...")
+
+    def send_email(self):
+        self._connect()
+        self._authenticate()
+        print("Sending email ...")
+        self._disconnect()
+
+    def _disconnect(self):  
+        print("Disconnecting from email server ...")  
+
+email = EmailService()
+email.send_email() # voert 4 methods uit in plaats van 4 methods op te geven die moeten uitgevoerd worden
+
+# ________________________________________________________________________________________________________________________________________________
+#  
+# Inheritance -> creating subclasses or derived classes based on existing classes (superclasses or base classes)
+
+
