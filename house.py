@@ -17,10 +17,10 @@ class LivingRoom(House):
         self.floor = floor
 
     def start_cleaning(self): # eerdere method van de parent wordt hier gespecifieerd en gebruikt als men de subclass tegenkomt
-        print("Living room will be cleaned")
+        print("Livingroom will be cleaned")
 
     def stop_cleaning(self):
-        print(f"Living room is clean, , including {self.table} and {self.sofa} + {self.floor}")     
+        print(f"Livingroom is clean, including {self.table} and {self.sofa} + {self.floor} ---- from subclass livingroom")     
 
 class BathRoom(House):
     def __init__(self, surface, year, bath, shower, floor, walls):
@@ -31,10 +31,10 @@ class BathRoom(House):
         self.walls = walls   
 
     def start_cleaning(self):
-        print("Bath room will be cleaned")
+        print("Bathroom will be cleaned")
 
     def stop_cleaning(self):
-        print(f"Bath room is clean, including {self.walls}, {self.bath} and {self.shower}")                  
+        print(f"Bathroom is clean, including {self.walls}, {self.bath} and {self.shower} ---- from subclass bathroom")                  
 
 rooms = [
     LivingRoom("35m2", 2019, "table in wood", "sofa in white textile", "floor in wood"),
@@ -42,9 +42,17 @@ rooms = [
 ]
 
 for room in rooms:
-    print(f"Inspecting {room.surface} and floor to be cleaned: {room.floor} ({type(room).__name__})")
+    print('-' * 15)
+    print(f"Inspecting {room.surface} and floor to be cleaned: {room.floor} ({type(room).__name__})") # kun hier kenmerken van de subclasses weergeven die verschillen?
+    if isinstance(room, BathRoom):
+        print(f"For the bathroom iinspect also: the {room.shower}, the {room.bath} and the {room.walls}")
+    elif isinstance(room, LivingRoom):
+        print(f"For the livingroom inspect also the {room.table} and the {room.sofa}")
+    print('-' * 15)
     room.start_cleaning()
+    print('-' * 8)
     room.stop_cleaning()
+    print('-' * 8)
     
 #    if isinstance(room, House):
 #       print(f"Inspecting {room.surface}")
