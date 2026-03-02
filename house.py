@@ -46,7 +46,7 @@ for room in rooms:
     print(f"Inspecting {room.surface} and floor to be cleaned: {room.floor} ({type(room).__name__})") # kun hier kenmerken van de subclasses weergeven die verschillen?
     if isinstance(room, BathRoom):
         print(f"For the bathroom iinspect also: the {room.shower}, the {room.bath} and the {room.walls}")
-    elif isinstance(room, LivingRoom):
+    elif isinstance(room, LivingRoom): # isinstance is niet hetzelfde of type
         print(f"For the livingroom inspect also the {room.table} and the {room.sofa}")
     print('-' * 15)
     room.start_cleaning()
